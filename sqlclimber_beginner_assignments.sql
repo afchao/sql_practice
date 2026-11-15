@@ -178,3 +178,167 @@ WHERE c.Population >= 44000000
     - They are members of the European Union.
     - They do not use the euro.
 */
+
+SELECT *
+FROM Country c
+WHERE c.EuropeUnionMember = 1 AND c.CurrencyCode != 'EUR'
+
+
+-- #17): Multiple simple conditions 2
+-- Return all columns for countries whose capital is Amsterdam, Paris, or Madrid.
+
+SELECT *
+FROM Country c
+WHERE c.Capital IN ('Amsterdam','Paris','Madrid')
+
+
+-- #18): Multiple simple conditions 3
+/*
+    Return all columns for countries in either of these population ranges:
+    - From 10 million to 20 million, including both limits.
+    - From 44 million to 55 million, including both limits.
+
+*/
+
+SELECT * 
+FROM Country c
+WHERE c.Population BETWEEN 10000000 AND 20000000 OR c.Population BETWEEN 44000000 AND 55000000
+
+/*
+The solution's condition is much better-organized, like 
+WHERE (c.Population >= 10000000 AND c.Population <= 20000000)
+   OR (c.Population >= 44000000 AND c.Population <= 55000000)
+but doesn't use "BETWEEN", because it's about to be introduced...
+*/
+
+-- #19): Condition BETWEEN 1
+/*
+    Return all columns for countries in either of these population ranges:
+    - From 10 million to 20 million.
+    - From 44 million to 55 million.
+
+*/
+
+SELECT * 
+FROM Country c
+WHERE c.Population BETWEEN 10000000 AND 20000000 OR c.Population BETWEEN 44000000 AND 55000000
+
+
+-- #20): Condition BETWEEN 2
+-- Return all columns for countries whose population is not between 15 million and 55 million.
+
+SELECT *
+FROM Country c
+WHERE c.population NOT BETWEEN 15000000 AND 55000000
+
+
+-- #21): Condition LIKE 1
+-- Return all columns for countries whose capital starts with the letter A.
+
+SELECT *
+FROM Country c
+WHERE c.Capital LIKE 'A%'
+
+
+-- #22): Condition LIKE 2
+-- Return all columns for countries whose capital ends with the letter e.
+
+SELECT *
+FROM Country c
+WHERE c.Capital LIKE '%e'
+
+
+-- #23): Condition LIKE 3
+-- Return all columns for countries whose capital contains the letter a
+
+SELECT *
+FROM Country c
+WHERE c.capital LIKE '%a%'
+
+
+-- #24): Condition NULL 1
+-- Return all columns for countries that have no CurrencyCode VALUE
+
+SELECT *
+FROM Country c
+WHERE CurrencyCode IS NULL
+
+-- #25): Condition NULL 2
+-- Return all columns for countries that have a CurrencyCode value 
+
+SELECT *
+FROM Country c 
+WHERE CurrencyCode IS NOT NULL
+
+
+-- #26): Condition NULL 3
+/*
+    Return all columns for countries that do not use the euro.
+
+    Include countries whose CurrencyCode is different from EUR
+    and countries that have no CurrencyCode value.
+
+*/
+
+SELECT *
+FROM Country c 
+WHERE c.CurrencyCode != 'EUR' OR CurrencyCode IS NULL
+
+
+-- #27): Multiple condition 1
+/*
+    Select countries that match all of the following conditions:
+    - They are members of the European Union.
+    - Their population is between 25 million and 100 million.
+    - They use the euro.
+
+    Return all columns and use BETWEEN for the population range.
+*/
+
+SELECT *
+FROM Country c
+WHERE 
+	c.EuropeUnionMember = 1
+    AND c.Population BETWEEN 25000000 AND 100000000
+    AND c.CurrencyCode = 'EUR'
+
+
+-- #28): Multiple condition 2
+/*
+    Return all columns for countries that meet at least one condition:
+    - They have no CurrencyCode value.
+    - Their CurrencyCode is different from EUR.
+
+*/
+
+SELECT *
+FROM Country c 
+WHERE c.CurrencyCode != 'EUR' OR c.CurrencyCode IS NULL
+
+
+-- #29): Multiple condition 3
+/*
+    Return all columns for countries that meet at least one condition:
+    - They are not members of the European Union.
+    - Their name contains more than one word.
+
+*/
+
+SELECT *
+FROM Country c 
+WHERE c.EuropeUnionMember != 1 OR TRIM(c.Name) LIKE '% %'
+
+
+-- #30): Select variables
+/*
+    The variables @CountryName and @Capital are already declared below.
+
+    Your task:
+    Return their values as a one-row result with these columns:
+    - CountryName containing the value of @CountryName
+    - Capital containing the value of @Capital
+
+DECLARE @CountryName NVARCHAR(100) = 'France'
+DECLARE @Capital NVARCHAR(100) = 'Paris'
+*/
+
