@@ -342,3 +342,211 @@ DECLARE @CountryName NVARCHAR(100) = 'France'
 DECLARE @Capital NVARCHAR(100) = 'Paris'
 */
 
+SELECT @CountryName as CountryName, @Capital as Capital
+
+
+-- #31): Set variables 1
+/*
+    The variables @CountryName and @Capital are declared without values.
+
+    Your task:
+    - Set @CountryName to New Zealand.
+    - Set @Capital to Wellington.
+
+DECLARE @CountryName NVARCHAR(100)
+DECLARE @Capital NVARCHAR(100)
+*/
+
+SET @CountryName = 'New Zealand'
+SET @Capital = 'Wellington'
+
+
+-- #32): Set variables 2
+/*
+
+    Four variables containing country names are declared below.
+
+    Your task:
+    Set @CountryNameCsv to all four country names separated by commas.
+
+    Required format: {country 1},{country 2},{country 3},{country 4}
+
+DECLARE @CountryName1 NVARCHAR(100) = 'Germany'
+DECLARE @CountryName2 NVARCHAR(100) = 'France'
+DECLARE @CountryName3 NVARCHAR(100) = 'Italy'
+DECLARE @CountryName4 NVARCHAR(100) = 'Spain'
+DECLARE @CountryNameCsv NVARCHAR(100)
+*/
+
+SET @CountryNameCsv = @CountryName1 + ',' + @CountryName2 + ',' + @CountryName3 + ',' + @CountryName4
+
+
+-- #33): Set variables 3
+/*
+    The length and width of a rectangle are declared below.
+
+    Your task:
+    - Calculate the area and set @RectangleArea to the result.
+    - Calculate the perimeter and set @RectanglePerimeter to the result.
+
+DECLARE @RectangleLength INT = 12 
+DECLARE @RectangleWidth INT = 5
+
+DECLARE @RectangleArea INT
+DECLARE @RectanglePerimeter INT
+*/
+
+SET @RectangleArea = @RectangleLength*@RectangleWidth
+SET @RectanglePerimeter = (@RectangleLength*2)+(@RectangleWidth*2)
+
+
+-- #34): Use Variables 1
+/*
+    The variable @Capital is declared below.
+
+    Your task:
+    Return all columns for the country whose Capital matches the value of @Capital.
+
+DECLARE @Capital NVARCHAR(100) = 'Madrid'
+*/
+
+SELECT *
+FROM Country c
+WHERE c.Capital = @Capital
+
+
+-- #35): Use variables 2
+/*
+    The variables @MinimalPopulation and @MaximumPopulation are declared below.
+
+    Your task:
+    Return all columns for countries whose Population is between these two variable values.
+
+DECLARE @MinimalPopulation INT = 10000000
+DECLARE @MaximumPopulation INT = 30000000
+*/
+
+SELECT * 
+FROM Country c
+WHERE c.Population BETWEEN @MinimalPopulation AND @MaximumPopulation
+
+
+-- #36): Use variables 3
+/*
+    @CountryId contains the Id of a country. The other variables are declared without values.
+
+    Your task:
+    Find the country whose Id matches @CountryId and set:
+    - @CountryName to its Name
+    - @Capital to its Capital
+    - @Population to its Population
+
+DECLARE @CountryId INT = 9
+DECLARE @CountryName NVARCHAR(100)
+DECLARE @Capital NVARCHAR(100)
+DECLARE @Population INT
+*/
+
+SET @CountryName = (SELECT c.Name FROM Country c WHERE c.Id = @CountryId)
+SET @Capital = (SELECT c.Capital FROM Country c WHERE c.Id = @CountryId)
+SET @Population = (SELECT c.Population FROM Country c WHERE c.Id = @CountryId)
+
+-- I like their solution more
+
+SELECT
+    @CountryName = c.Name
+   ,@Capital = c.Capital
+   ,@Population = c.Population
+FROM Country c
+WHERE c.Id = @CountryId
+
+
+-- #37): Declare variable 1
+/*
+    Your task:
+    Declare @Capital with the data type NVARCHAR(100) and set it to Wellington.
+
+    The value is selected at the end of the script so that your declaration can be checked.
+
+*/
+
+DECLARE @Capital NVARCHAR(100) = 'Wellington'
+
+
+-- #38): Declare Variable 2
+/*
+    Your task:
+    - Declare @TouristAttraction as NVARCHAR(100) and set it to @Value1.
+    - Declare @Description as NVARCHAR(500) and set it to @Value2.
+DECLARE @Value1 NVARCHAR(1000) = 'Machu Picchu'
+DECLARE @Value2 NVARCHAR(1000) = 'Machu Picchu is an Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. Built in the 15th century and later abandoned, it’s renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views. Its exact former use remains a mystery.'
+*/
+
+DECLARE @TouristAttraction NVARCHAR(100) = @Value1
+DECLARE @Description NVARCHAR(500) = @Value2
+
+
+-- #39): Declare Variable 3
+/*
+    The maximum length of a text data type is important. A value may be shortened if the
+    destination variable is too small.
+
+    Your task:
+    - Declare @Description500 as NVARCHAR(500) and set it to @Description.
+    - Declare @Description100 as NVARCHAR(100) and set it to @Description.
+    - Declare @Description20 as NVARCHAR(20) and set it to @Description.
+
+DECLARE @Description NVARCHAR(1000) = 'Machu Picchu is an Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. Built in the 15th century and later abandoned, it’s renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views. Its exact former use remains a mystery.'
+*/
+
+DECLARE @Description500 NVARCHAR(500) = @Description
+DECLARE @Description100 NVARCHAR(100) = @Description
+DECLARE @Description20 NVARCHAR(20) = @Description
+
+
+
+-- #40): Declare Variable 4
+/*
+    Your task:
+    - Declare @DecimalScale8 as DECIMAL(18,8) and set it to @DecimalScale16.
+    - Declare @DecimalScale4 as DECIMAL(18,4) and set it to @DecimalScale16.
+    - Declare @DecimalScale2 as DECIMAL(18,2) and set it to @DecimalScale16.
+
+DECLARE @DecimalScale16 DECIMAL(18,16) = PI()
+*/
+DECLARE @DecimalScale8 DECIMAL(18,8) = @DecimalScale16
+DECLARE @DecimalScale4 DECIMAL(18,4) = @DecimalScale16
+DECLARE @DecimalScale2 DECIMAL(18,2) = @DecimalScale16
+
+
+-- #41): Select the first N records
+/*
+    The variable @TopCountries is declared below.
+
+    Your task:
+    Return the first N rows from the Country table, where N is the value of @TopCountries.
+
+DECLARE @TopCountries INT = 7
+*/
+
+SELECT TOP (@TopCountries) * 
+FROM Country c
+
+
+-- #42): Print variables 1
+/*
+    The variables @CountryName and @Capital are declared below.
+
+    Your task:
+    Print three messages in this format:
+    These are printed values:
+    {country name}
+    {capital}
+
+DECLARE @CountryName NVARCHAR(100) = 'France'
+DECLARE @Capital NVARCHAR(100) = 'Paris'
+*/
+
+PRINT 'These are printed values:'
+PRINT @CountryName
+PRINT @Capital
